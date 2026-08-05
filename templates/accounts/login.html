@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سیستم ورود</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+</head>
+<body>
+    
+    <!-- Login Form Screen -->
+    <div class="login-page">
+        <div class="container">
+            <div class="login-box">
+                <h1>خوش آمدید</h1>
+                <p class="subtitle">وارد حساب خود شوید</p>
+                
+               <form method="POST" action="{% url 'accounts:login' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">نام کاربری</label>
+                        <input 
+                            type="text" 
+                            name="username"
+                            id="username" 
+                            placeholder="نام کاربری را وارد کنید"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">رمز عبور</label>
+                        <input 
+                            type="password" 
+                            name="password"
+                            id="password" 
+                            placeholder="رمز عبور را وارد کنید"
+                            required
+                        >
+                    </div>
+
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">مرا به خاطر بسپار</label>
+                    </div>
+
+                    <button type="submit" class="btn-primary">ورود</button>
+                </form>
+
+                <div class="divider">یا</div>
+
+                <div class="guest-section">
+                    <p>کاربر جدید هستید؟</p>
+                    <button class="btn-secondary" onclick="loginAsGuest()">ورود به صورت مهمان</button>
+                </div>
+
+                <div id="errorMessage" class="error-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    
+
+    <script>
+        // ==================== LOGIN SYSTEM ====================
+        const loginForm = document.getElementById('loginForm');
+        const loginScreen = document.getElementById('loginScreen');
+        const dashboardScreen = document.getElementById('dashboardScreen');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Check if user is already logged in
+        window.addEventListener('load', () => {
+            const savedUser = localStorage.getItem('loggedInUser');
+            const savedAccountType = localStorage.getItem('accountType');
+            
+            if (savedUser) {
+                showDashboard(savedUser, savedAccountType);
+            }
+        });
+
+        // Login Form Submit
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const rememberMe = document.getElementById('rememberMe').checked;
+
+            // Simple validation
+            if (username.length < 3) {
+                showError('نام کاربری باید حداقل 3 حرف باشد');
+                return;
+            }
+
+            if (password.length < 4) {
+                showError('رمز عبور باید حداقل 4 حرف باشد');
+                return;
+            }
+
+            // Success
+            errorMessage.textContent = '';
+            localStorage.setItem('loggedInUser', username);
+            localStorage.setItem('accountType', 'کاربر عادی');
+            
+            if (rememberMe) {
+                localStorage.setItem('rememberMe', 'true');
+            }
+
+            showDashboard(username, 'کاربر عادی');
+        });
+
+        function loginAsGuest() {
+            const guestName = 'مهمان_' + Math.floor(Math.random() * 10000);
+            localStorage.setItem('loggedInUser', guestName);
+            localStorage.setItem('accountType', 'مهمان');
+            showDashboard(guestName, 'مهمان');
+        }
+
+        function showDashboard(username, accountType) {
+            loginScreen.classList.remove('active');
+            dashboardScreen.classList.add('active');
+            
+            document.getElementById('userDisplay').textContent = username;
+            document.getElementById('userInfo').textContent = username;
+            document.getElementById('accountType').textContent = accountType || 'کاربر عادی';
+            
+            const now = new Date();
+            const timeString = now.toLocaleString('fa-IR');
+            document.getElementById('loginTime').textContent = timeString;
+        }
+
+        function logout() {
+            if (confirm('آیا مطمئن هستید که می‌خواهید خارج شوید؟')) {
+                localStorage.removeItem('loggedInUser');
+                localStorage.removeItem('accountType');
+                localStorage.removeItem('rememberMe');
+                
+                loginScreen.classList.add('active');
+                dashboardScreen.classList.remove('active');
+                
+                // Clear form
+                loginForm.reset();
+                errorMessage.textContent = '';
+            }
+        }
+
+        function showError(message) {
+            errorMessage.textContent = '❌ ' + message;
+            errorMessage.style.display = 'block';
+        }
+
+        // Allow Enter key to submit form
+        document.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && loginScreen.classList.contains('active')) {
+                loginForm.dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    {% if messages %}
+    {% for message in messages %}
+    <script>
+        Swal.fire({
+            icon: "{{ message.tags }}",
+            title: "{{ message.tags|upper }}",
+            text: "{{ message }}"
+        });
+    </script>
+    {% endfor %}
+{% endif %}
+</body>
+</html>

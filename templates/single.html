@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,27 +21,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/lightbox/css/lightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/waypoints/noframework.waypoints.min.css' %}" rel="stylesheet">
 
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 
 <body>
+    
 
     <!-- Spinner Start -->
-    <div id="spinner"
-        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
+    
     <!-- Spinner End -->
 
 
@@ -103,7 +100,7 @@
                     <a href="" class="navbar-brand p-0">
                         <h1 class="display-5 text-primary m-0"><i
                                 class="fas fa-shopping-bag text-secondary me-2"></i>Electro</h1>
-                        <!-- <img src="img/logo.png" alt="Logo"> -->
+                        <!-- <img src="{% static 'img/logo.png' %}" alt="Logo"> -->
                     </a>
                 </div>
             </div>
@@ -191,7 +188,7 @@
                     <a href="" class="navbar-brand d-block d-lg-none">
                         <h1 class="display-5 text-secondary m-0"><i
                                 class="fas fa-shopping-bag text-white me-2"></i>Electro</h1>
-                        <!-- <img src="img/logo.png" alt="Logo"> -->
+                        <!-- <img src="{% static 'img/logo.png' %}" alt="Logo"> -->
                     </a>
                     <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse">
@@ -199,23 +196,22 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav ms-auto py-0">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="single.html" class="nav-item nav-link active">Single Page</a>
+                            <a href="{% url 'app:index' %}" class="nav-item nav-link active">Home</a>
+                            <a href="{% url 'app:shop' %}" class="nav-item nav-link">Shop</a>
+                            <a href="{% url 'app:single' product.id %}" class="nav-item nav-link">Single Page</a>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link" data-bs-toggle="dropdown"><span
-                                        class="dropdown-toggle">Pages</span></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0">
-                                    <a href="bestseller.html" class="dropdown-item">Bestseller</a>
-                                    <a href="cart.html" class="dropdown-item">Cart Page</a>
-                                    <a href="cheackout.html" class="dropdown-item">Cheackout</a>
-                                    <a href="404.html" class="dropdown-item">404 Page</a>
+                                    <a href="{% url 'app:bestseller' %}" class="dropdown-item">Bestseller</a>
+                                    <a href="{% url 'app:cart' %}" class="dropdown-item">Cart Page</a>
+                                    <a href="{% url 'app:cheackout' %}" class="dropdown-item">Cheackout</a>
+                                    <a href="{% url 'app:404' %}" class="dropdown-item">404 Page</a>
+                                  
                                 </div>
                             </div>
-                            <a href="contact.html" class="nav-item nav-link me-2">Contact</a>
+                            <a href="{% url 'app:contact' %}" class="nav-item nav-link me-2">Contact</a>
                             <div class="nav-item dropdown d-block d-lg-none mb-3">
-                                <a href="#" class="nav-link" data-bs-toggle="dropdown"><span class="dropdown-toggle">All
-                                        Category</span></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">All Category</a>
                                 <div class="dropdown-menu m-0">
                                     <ul class="list-unstyled categories-bars">
                                         <li>
@@ -286,41 +282,15 @@
                     <div class="product-categories mb-4">
                         <h4>Products Categories</h4>
                         <ul class="list-unstyled">
+                            {% for category in categories %}
                             <li>
                                 <div class="categories-item">
                                     <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
-                                        Accessories</a>
+                                        {{category.name}}</a>
                                     <span>(3)</span>
                                 </div>
                             </li>
-                            <li>
-                                <div class="categories-item">
-                                    <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
-                                        Electronics & Computer</a>
-                                    <span>(5)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="categories-item">
-                                    <a href="#" class="text-dark"><i
-                                            class="fas fa-apple-alt text-secondary me-2"></i>Laptops & Desktops</a>
-                                    <span>(2)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="categories-item">
-                                    <a href="#" class="text-dark"><i
-                                            class="fas fa-apple-alt text-secondary me-2"></i>Mobiles & Tablets</a>
-                                    <span>(8)</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="categories-item">
-                                    <a href="#" class="text-dark"><i
-                                            class="fas fa-apple-alt text-secondary me-2"></i>SmartPhone & Smart TV</a>
-                                    <span>(5)</span>
-                                </div>
-                            </li>
+                           {% endfor %}
                         </ul>
                     </div>
                     <div class="additional-product mb-4">
@@ -338,11 +308,11 @@
                             <label for="Categories-3" class="text-dark"> White</label>
                         </div>
                     </div>
-                    <div class="featured-product mb-4">
+                    <!-- <div class="featured-product mb-4">
                         <h4 class="mb-3">Featured products</h4>
                         <div class="featured-product-item">
                             <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="img/product-3.png" class="img-fluid rounded" alt="Image">
+                                <img src="{% static 'img/product-3.png' %}" class="img-fluid rounded" alt="Image">
                             </div>
                             <div>
                                 <h6 class="mb-2">SmartPhone</h6>
@@ -361,7 +331,7 @@
                         </div>
                         <div class="featured-product-item">
                             <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="img/product-4.png" class="img-fluid rounded" alt="Image">
+                                <img src="{% static 'img/product-4.png' %}" class="img-fluid rounded" alt="Image">
                             </div>
                             <div>
                                 <h6 class="mb-2">Smart Camera</h6>
@@ -380,7 +350,7 @@
                         </div>
                         <div class="featured-product-item">
                             <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="img/product-5.png" class="img-fluid rounded" alt="Image">
+                                <img src="{% static 'img/product-5.png' %}" class="img-fluid rounded" alt="Image">
                             </div>
                             <div>
                                 <h6 class="mb-2">Smart Camera</h6>
@@ -399,7 +369,7 @@
                         </div>
                         <div class="featured-product-item">
                             <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="img/product-6.png" class="img-fluid rounded" alt="Image">
+                                <img src="{% static 'img/product-6.png' %}" class="img-fluid rounded" alt="Image">
                             </div>
                             <div>
                                 <h6 class="mb-2">Smart Camera</h6>
@@ -418,7 +388,7 @@
                         </div>
                         <div class="featured-product-item">
                             <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="img/product-7.png" class="img-fluid rounded" alt="Image">
+                                <img src="{% static 'img/product-7.png' %}" class="img-fluid rounded" alt="Image">
                             </div>
                             <div>
                                 <h6 class="mb-2">Camera Leance</h6>
@@ -437,7 +407,7 @@
                         </div>
                         <div class="featured-product-item">
                             <div class="rounded me-4" style="width: 100px; height: 100px;">
-                                <img src="img/product-8.png" class="img-fluid rounded" alt="Image">
+                                <img src="{% static 'img/product-8.png' %}" class="img-fluid rounded" alt="Image">
                             </div>
                             <div>
                                 <h6 class="mb-2">Smart Camera</h6>
@@ -457,17 +427,17 @@
                         <div class="d-flex justify-content-center my-4">
                             <a href="#" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
                         </div>
-                    </div>
+                    </div> -->
                     <a href="#">
-                        <div class="position-relative">
-                            <img src="img/product-banner-2.jpg" class="img-fluid w-100 rounded" alt="Image">
+                        <!-- <div class="position-relative">
+                            <img src="{% static 'img/product-banner-2.jpg' %}" class="img-fluid w-100 rounded" alt="Image">
                             <div class="text-center position-absolute d-flex flex-column align-items-center justify-content-center rounded p-4"
                                 style="width: 100%; height: 100%; top: 0; right: 0; background: rgba(242, 139, 0, 0.3);">
                                 <h5 class="display-6 text-primary">SALE</h5>
                                 <h4 class="text-secondary">Get UP To 50% Off</h4>
                                 <a href="#" class="btn btn-primary rounded-pill px-4">Shop Now</a>
                             </div>
-                        </div>
+                        </div> -->
                     </a>
                     <div class="product-tags my-4">
                         <h4 class="mb-3">PRODUCT TAGS</h4>
@@ -488,43 +458,18 @@
                 <div class="col-lg-7 col-xl-9 wow fadeInUp" data-wow-delay="0.1s">
                     <div class="row g-4 single-product">
                         <div class="col-xl-6">
-                            <div class="single-carousel owl-carousel">
-                                <div class="single-item"
-                                    data-dot="<img class='img-fluid' src='img/product-4.png' alt=''>">
+                            <div class="">
+                                <div class="single-item">
                                     <div class="single-inner bg-light rounded">
-                                        <img src="img/product-4.png" class="img-fluid rounded" alt="Image">
-                                    </div>
-                                </div>
-                                <div class="single-item"
-                                    data-dot="<img class='img-fluid' src='img/product-5.png' alt=''>">
-                                    <div class="single-inner bg-light rounded">
-                                        <img src="img/product-5.png" class="img-fluid rounded" alt="Image">
-                                    </div>
-                                </div>
-                                <div class="single-item"
-                                    data-dot="<img class='img-fluid' src='img/product-6.png' alt=''>">
-                                    <div class="single-inner bg-light rounded">
-                                        <img src="img/product-6.png" class="img-fluid rounded" alt="Image">
-                                    </div>
-                                </div>
-                                <div class="single-item"
-                                    data-dot="<img class='img-fluid' src='img/product-7.png' alt=''>">
-                                    <div class="single-inner bg-light rounded">
-                                        <img src="img/product-7.png" class="img-fluid rounded" alt="Image">
-                                    </div>
-                                </div>
-                                <div class="single-item"
-                                    data-dot="<img class='img-fluid' src='img/product-3.png' alt=''>">
-                                    <div class="single-inner bg-light rounded">
-                                        <img src="img/product-3.png" class="img-fluid rounded" alt="Image">
+                                       <img src="{{ product.image.url }}" class="img-fluid rounded" alt="Image">
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-xl-6">
-                            <h4 class="fw-bold mb-3">Smart Camera</h4>
-                            <p class="mb-3">Category: Electronics</p>
-                            <h5 class="fw-bold mb-3">3,35 $</h5>
+                            <h4 class="fw-bold mb-3">{{product.name}}</h4>
+                            <p class="mb-3">Category: {{product.category.name}}</p>
+                            <h5 class="fw-bold mb-3">{{product.price}} $</h5>
                             <div class="d-flex mb-4">
                                 <i class="fa fa-star text-secondary"></i>
                                 <i class="fa fa-star text-secondary"></i>
@@ -542,10 +487,7 @@
                                 <small>Product SKU: N/A</small>
                                 <small>Available: <strong class="text-primary">20 items in stock</strong></small>
                             </div>
-                            <p class="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected
-                                humour, or non-characteristic words etc.</p>
-                            <p class="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder;
-                                chain pickerel hatchetfish, pencilfish snailfish</p>
+                            
                             <div class="input-group quantity mb-5" style="width: 100px;">
                                 <div class="input-group-btn">
                                     <button class="btn btn-sm btn-minus rounded-circle bg-light border">
@@ -577,74 +519,25 @@
                             <div class="tab-content mb-5">
                                 <div class="tab-pane active" id="nav-about" role="tabpanel"
                                     aria-labelledby="nav-about-tab">
-                                    <p>Our new <b class="fw-bold">HPB12 / A12 battery</b> is rated at 2000mAh and
-                                        designed to power up Black and Decker / FireStorm line of 12V tools allowing
-                                        users to run multiple devices off the same battery pack. The HPB12 is compatible
-                                        with the following Black and Decker power tool models:
-                                    </p>
-                                    <b class="fw-bold">Black & Decker Drills and Drivers:</b>
-                                    <p class="small">BD12PSK, BDG1200K, BDGL12K, BDID1202, CD1200SK, CD12SFK, CDC1200K,
-                                        CDC120AK, CDC120ASB, CP122K, CP122KB, CP12K, CP12KB, EPC12, EPC126, EPC126BK,
-                                        EPC12CA, EPC12CABK, HP122K, HP122KD, HP126F2B, HP126F2K, HP126F3B, HP126F3K,
-                                        HP126FBH, HP126FSC, HP126FSH, HP126K, HP128F3B, HP12K, HP12KD, HPD1200, HPD1202,
-                                        HPD1202KF, HPD12K-2, PS122K, PS122KB, PS12HAK, SS12, SX3000, SX3500, XD1200,
-                                        XD1200K, XTC121
-                                    </p>
-                                    <b class="fw-bold">lack & Decker Impact Wrenches:</b>
-                                    <p class="small">SX5000, XTC12IK, XTC12IKH</p>
-                                    <b class="fw-bold">Black & Decker Multi-Tools:</b>
-                                    <p class="small">KC2000FK</p>
-                                    <b class="fw-bold">Black & Decker Nailers:</b>
-                                    <p class="small">BDBN1202</p>
-                                    <b class="fw-bold">Black & Decker Screwdrivers:</b>
-                                    <p class="small">HP9019K</p>
-                                    <b class="fw-bold mb-0">Best replacement for the following Black and Decker OEM
-                                        battery part numbers:</b>
-                                    <p class="small">HPB12, A12, A12EX, A12-XJ, A1712, B-8315, BD1204L, BD-1204L,
-                                        BPT1047, FS120B, FS120BX, FSB12.</p>
+                                    {{product.description}}
                                 </div>
                                 <div class="tab-pane" id="nav-mission" role="tabpanel"
                                     aria-labelledby="nav-mission-tab">
+                                    {% for comment in comments %}
                                     <div class="d-flex">
-                                        <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
-                                            style="width: 100px; height: 100px;" alt="">
+                                        
                                         <div class="">
-                                            <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
+                                            <p class="mb-2" style="font-size: 14px;">{{ comment.created_time }}</p>
                                             <div class="d-flex justify-content-between">
-                                                <h5>Jason Smith</h5>
-                                                <div class="d-flex mb-3">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
+                                                <h5>{{ comment.name }}</h5>
+                                                
                                             </div>
-                                            <p>The generated Lorem Ipsum is therefore always free from repetition
-                                                injected humour, or non-characteristic
-                                                words etc. Susp endisse ultricies nisi vel quam suscipit </p>
+                                            <p>{{ comment.comment }}</p>
                                         </div>
                                     </div>
-                                    <div class="d-flex">
-                                        <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
-                                            style="width: 100px; height: 100px;" alt="">
-                                        <div class="">
-                                            <p class="mb-2" style="font-size: 14px;">April 12, 2024</p>
-                                            <div class="d-flex justify-content-between">
-                                                <h5>Sam Peters</h5>
-                                                <div class="d-flex mb-3">
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star text-secondary"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                            </div>
-                                            <p class="text-dark">The generated Lorem Ipsum is therefore always free from
-                                                repetition injected humour, or non-characteristic
-                                                words etc. Susp endisse ultricies nisi vel quam suscipit </p>
-                                        </div>
-                                    </div>
+                                    <br>
+                                    <br>
+                                    {% endfor %}
                                 </div>
                                 <div class="tab-pane" id="nav-vision" role="tabpanel">
                                     <p class="text-dark">Tempor erat elitr rebum at clita. Diam dolor diam ipsum et
@@ -656,25 +549,35 @@
                                 </div>
                             </div>
                         </div>
-                        <form action="#">
+                        <form action="#"  method="POST">
                             <h4 class="mb-5 fw-bold">Leave a Reply</h4>
                             <div class="row g-4">
                                 <div class="col-lg-6">
-                                    <div class="border-bottom rounded">
-                                        <input type="text" class="form-control border-0 me-4" placeholder="Yur Name *">
-                                    </div>
+                                    <!-- <div class="border-bottom rounded">
+                                        <input type="text" class="form-control border-0 me-4" placeholder="your name *">
+                                    </div> -->
                                 </div>
-                                <div class="col-lg-6">
-                                    <div class="border-bottom rounded">
-                                        <input type="email" class="form-control border-0" placeholder="Your Email *">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="border-bottom rounded my-4">
-                                        <textarea name="" id="" class="form-control border-0" cols="30" rows="8"
-                                            placeholder="Your Review *" spellcheck="false"></textarea>
-                                    </div>
-                                </div>
+                                <form method="POST">
+    {% csrf_token %}
+
+    
+
+    <div class="col-lg-12">
+        <div class="border-bottom rounded my-4">
+            <textarea 
+                name="comment"
+                class="form-control border-0" 
+                cols="30" 
+                rows="8"
+                placeholder="Your Review *"></textarea>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Submit Review
+    </button>
+
+</form>
                                 <div class="col-lg-12">
                                     <div class="d-flex justify-content-between py-3 mb-5">
                                         <div class="d-flex align-items-center">
@@ -714,7 +617,7 @@
                 <div class="related-item rounded">
                     <div class="related-item-inner border rounded">
                         <div class="related-item-inner-item">
-                            <img src="img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="{% static 'img/product-3.png' %}" class="img-fluid w-100 rounded-top" alt="">
                             <div class="related-new">New</div>
                             <div class="related-details">
                                 <a href="#"><i class="fa fa-eye fa-1x"></i></a>
@@ -753,7 +656,7 @@
                 <div class="related-item rounded">
                     <div class="related-item-inner border rounded">
                         <div class="related-item-inner-item">
-                            <img src="img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="{% static 'img/product-3.png' %}" class="img-fluid w-100 rounded-top" alt="">
                             <div class="related-new">New</div>
                             <div class="related-details">
                                 <a href="#"><i class="fa fa-eye fa-1x"></i></a>
@@ -792,7 +695,7 @@
                 <div class="related-item rounded">
                     <div class="related-item-inner border rounded">
                         <div class="related-item-inner-item">
-                            <img src="img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="{% static 'img/product-3.png' %}" class="img-fluid w-100 rounded-top" alt="">
                             <div class="related-new">New</div>
                             <div class="related-details">
                                 <a href="#"><i class="fa fa-eye fa-1x"></i></a>
@@ -831,7 +734,7 @@
                 <div class="related-item rounded">
                     <div class="related-item-inner border rounded">
                         <div class="related-item-inner-item">
-                            <img src="img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="{% static 'img/product-3.png' %}" class="img-fluid w-100 rounded-top" alt="">
                             <div class="related-new">New</div>
                             <div class="related-details">
                                 <a href="#"><i class="fa fa-eye fa-1x"></i></a>
@@ -870,7 +773,7 @@
                 <div class="related-item rounded">
                     <div class="related-item-inner border rounded">
                         <div class="related-item-inner-item">
-                            <img src="img/product-3.png" class="img-fluid w-100 rounded-top" alt="">
+                            <img src="{% static 'img/product-3.png' %}" class="img-fluid w-100 rounded-top" alt="">
                             <div class="related-new">New</div>
                             <div class="related-details">
                                 <a href="#"><i class="fa fa-eye fa-1x"></i></a>
