@@ -5,9 +5,10 @@ from django.shortcuts import render , redirect
 from django.contrib.auth.decorators import login_required
 from store.forms import NameForm , CommentForm
 from django.db.models import Q
+from django.core.paginator import Paginator
 
 # Create your views here.
-def home_views(request):
+def home_views(request ):
     products = Product.objects.filter(status=True)
     categories = Category.objects.all()
     sort = request.GET.get("sort")
@@ -27,7 +28,6 @@ def home_views(request):
     return render(request, "index.html", context)
     
 def shop_views(request):
-
     products = Product.objects.filter(status=True)
 
     category = request.GET.get("category")
@@ -35,8 +35,14 @@ def shop_views(request):
     if category:
         products = products.filter(category_id=category)
 
+    paginator = Paginator(products, 6)
+
+    page_number = request.GET.get("page")
+    products = paginator.get_page(page_number)
+    categories = Category.objects.all()
     context = {
         "products": products,
+        "categories": categories
     }
 
     return render(request, "shop.html", context)
