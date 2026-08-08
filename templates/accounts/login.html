@@ -1,69 +1,72 @@
 {% load static %}
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fa">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>سیستم ورود</title>
-    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-</head>
-<body>
-    
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}" />
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Login Form Screen -->
-    <div class="login-page">
-        <div class="container">
-            <div class="login-box">
-                <h1>خوش آمدید</h1>
-                <p class="subtitle">وارد حساب خود شوید</p>
-                
-               <form method="POST" action="{% url 'accounts:login' %}">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="username">نام کاربری</label>
-                        <input 
-                            type="text" 
-                            name="username"
-                            id="username" 
-                            placeholder="نام کاربری را وارد کنید"
-                            required
-                        >
-                    </div>
+    <div id="loginScreen" class="screen active">
+      <div class="container">
+        <div class="login-box">
+          <h1>خوش آمدید</h1>
+          <p class="subtitle">وارد حساب خود شوید</p>
 
-                    <div class="form-group">
-                        <label for="password">رمز عبور</label>
-                        <input 
-                            type="password" 
-                            name="password"
-                            id="password" 
-                            placeholder="رمز عبور را وارد کنید"
-                            required
-                        >
-                    </div>
-
-                    <div class="remember-me">
-                        <input type="checkbox" id="rememberMe">
-                        <label for="rememberMe">مرا به خاطر بسپار</label>
-                    </div>
-
-                    <button type="submit" class="btn-primary">ورود</button>
-                </form>
-
-                <div class="divider">یا</div>
-
-                <div class="guest-section">
-                    <p>کاربر جدید هستید؟</p>
-                    <button class="btn-secondary" onclick="loginAsGuest()">ورود به صورت مهمان</button>
-                </div>
-
-                <div id="errorMessage" class="error-message"></div>
+          <form
+            id="loginForm"
+            method="post"
+            action="{% url 'accounts:login' %}"
+          >
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="username">نام کاربری</label>
+              {{ form.username }}
             </div>
+
+            <div class="form-group">
+              <label for="password">رمز عبور</label>
+              {{ form.password }}
+            </div>
+
+            <div class="remember-me">
+              <input type="checkbox" id="rememberMe" />
+              <label for="rememberMe">مرا به خاطر بسپار</label>
+            </div>
+            {% if messages %} {% for message in messages %}
+            <script>
+              Swal.fire({
+                icon: "{% if message.tags == 'success' %}success{% elif message.tags == 'error' %}error{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}",
+                title: "{{ message }}",
+                confirmButtonText: "باشه",
+              });
+            </script>
+            {% endfor %} {% endif %}
+
+            <button type="submit" class="btn-primary">ورود</button>
+          </form>
+
+          <div class="divider">یا</div>
+
+          <div class="guest-section">
+            <a
+              class="btn-secondary"
+              href="{% url 'accounts:password_reset' %}"
+              >فراموشی رمز عبور</a
+            >
+          </div>
+
+          <div id="errorMessage" class="error-message"></div>
         </div>
+      </div>
     </div>
 
     <!-- Dashboard Screen -->
-    
 
-    <script>
+    <!-- <script>
         // ==================== LOGIN SYSTEM ====================
         const loginForm = document.getElementById('loginForm');
         const loginScreen = document.getElementById('loginScreen');
@@ -94,10 +97,10 @@
                 return;
             }
 
-            if (password.length < 4) {
-                showError('رمز عبور باید حداقل 4 حرف باشد');
-                return;
-            }
+            // if (password.length < 4) {
+            //     showError('رمز عبور باید حداقل 4 حرف باشد');
+            //     return;
+            // }
 
             // Success
             errorMessage.textContent = '';
@@ -157,18 +160,7 @@
                 loginForm.dispatchEvent(new Event('submit'));
             }
         });
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {% if messages %}
-    {% for message in messages %}
-    <script>
-        Swal.fire({
-            icon: "{{ message.tags }}",
-            title: "{{ message.tags|upper }}",
-            text: "{{ message }}"
-        });
-    </script>
-    {% endfor %}
-{% endif %}
-</body>
+    </script> -->
+    
+  </body>
 </html>

@@ -26,6 +26,7 @@ urlpatterns = [
     path("404/",fourzero_views,name="404"),
     path("contact/",contact_views,name="contact"),
     path("search/", search_views, name="search"),
+    
 
      
 ]

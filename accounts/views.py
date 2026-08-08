@@ -69,3 +69,38 @@ def signup_views(request):
         form = SignupForm()
 
     return render(request, "accounts/signup.html", {"form": form})
+
+
+def password_reset_form_views(request):
+
+    if request.method == "POST":
+
+        username_or_email = request.POST.get("username")
+        new_password = request.POST.get("password")
+
+        try:
+            if "@" in username_or_email:
+                user = User.objects.get(email=username_or_email)
+            else:
+                user = User.objects.get(username=username_or_email)
+
+            user.set_password(new_password)
+            user.save()
+
+            messages.success(
+                request,
+                "Password changed successfully."
+            )
+
+            return redirect("accounts:login")
+
+        except User.DoesNotExist:
+            messages.error(
+                request,
+                "User not found."
+            )
+
+    return render(
+        request,
+        "accounts/password_reset_form.html"
+    )
