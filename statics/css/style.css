@@ -696,7 +696,13 @@
 
 
 
+.active-sort {
+    background-color: #f4c430 !important; /* زرد */
+}
 
+.active-sort span {
+    color: white !important;
+}
 
 
 

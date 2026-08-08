@@ -19,6 +19,7 @@ class Product(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='img/' , default='product-7.png')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
     # tags = models.CharField(max_length=100)
     rating = models.FloatField(default=0)
     

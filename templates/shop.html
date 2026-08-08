@@ -114,28 +114,14 @@
                                     name="q"
                                     placeholder="Search Looking For?">
                                                     
-                                <select 
-                                    class="form-select text-dark border-0 border-start rounded-0 p-3"
-                                    style="width: 200px;"
-                                    name="category">
-                                                    
-                                    <option value="">All Category</option>
-                                                    
-                                    {% for category in categories %}
-                                        <option value="{{ category.id }}">
-                                            {{ category.name }}
-                                        </option>
-                                    {% endfor %}
-                                    
-                                </select>
+                                
                             
                                 <button type="submit" class="btn btn-primary rounded-pill px-4 ms-2">
                                     Search
                                 </button>
                             
                             </form>
-                        <button type="button" class="btn btn-primary rounded-pill py-3 px-5" style="border: 0;"><i
-                                class="fas fa-search"></i></button>
+                        
                     </div>
                 </div>
             </div>
@@ -367,7 +353,7 @@
     <div class="container-fluid bg-light py-5">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.2s">
+                <!-- <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.2s">
                     <a href="#" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
                         <div>
                             <p class="text-muted mb-3">Find The Best Camera for You!</p>
@@ -388,7 +374,7 @@
                         </div>
                         <img src="{% static 'img/product-2.png' %}" class="img-fluid" alt="">
                     </a>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -559,7 +545,7 @@
                             <a href="#" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
                         </div>
                     </div>
-                    <a href="#">
+                    <!-- <a href="#">
                         <div class="position-relative">
                             <img src="{% static 'img/product-banner-2.jpg' %}" class="img-fluid w-100 rounded" alt="Image">
                             <div class="text-center position-absolute d-flex flex-column align-items-center justify-content-center rounded p-4"
@@ -569,7 +555,7 @@
                                 <a href="#" class="btn btn-primary rounded-pill px-4">Shop Now</a>
                             </div>
                         </div>
-                    </a>
+                    </a> -->
                     <div class="product-tags py-4">
                         <h4 class="mb-3">PRODUCT TAGS</h4>
                         <div class="product-tags-items bg-light rounded p-3">
@@ -587,7 +573,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="rounded mb-4 position-relative">
+                    <!-- <div class="rounded mb-4 position-relative">
                         <img src="{% static 'img/product-banner-3.jpg' %}" class="img-fluid rounded w-100" style="height: 250px;"
                             alt="Image">
                         <div class="position-absolute rounded d-flex flex-column align-items-center justify-content-center text-center"
@@ -596,16 +582,28 @@
                             <h3 class="display-4 text-white mb-4">Get UP To 50% Off</h3>
                             <a href="#" class="btn btn-primary rounded-pill">Shop Now</a>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row g-4">
                         <div class="col-xl-7">
-                            <div class="input-group w-100 mx-auto d-flex">
-                                <input type="search" class="form-control p-3" placeholder="keywords"
-                                    aria-describedby="search-icon-1">
-                                <span id="search-icon-1" class="input-group-text p-3"><i
-                                        class="fa fa-search"></i></span>
-                            </div>
-                        </div>
+                            <div class="d-flex border rounded-pill">
+                        <form action="{% url 'app:search' %}" method="GET" class="d-flex">
+
+                                <input 
+                                    class="form-control border-0 rounded-pill w-100 py-3"
+                                    type="text"
+                                    name="q"
+                                    placeholder="Search Looking For?">
+                                                    
+                                
+                            
+                                <button type="submit" class="btn btn-primary rounded-pill px-4 ms-2">
+                                    Search
+                                </button>
+                            
+                            </form>
+                        
+                    </div>
+                        <!-- </div>
                         <div class="col-xl-3 text-end">
                             <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between">
                                 <label for="electronics">Sort By:</label>
@@ -634,7 +632,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="tab-content">
                         <div id="tab-5" class="tab-pane fade show p-0 active">
@@ -659,7 +657,7 @@
                                         </div>
                                         <div
                                             class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                            <a href="#"
+                                            <a href="{% url 'app:add_to_cart' product.id %}"
                                                 class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
                                                     class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
                                             <div class="d-flex justify-content-between align-items-center">
@@ -680,7 +678,7 @@
                                 </div>
                                 {% endfor %}
                                 
-                                <!-- <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                                
                                     <div class="pagination d-flex justify-content-center mt-5">
                                         <a href="#" class="rounded">&laquo;</a>
                                         <a href="#" class="active rounded">1</a>
@@ -694,7 +692,7 @@
                                 </div> -->
                             </div>
                         </div>
-                        <div id="tab-6" class="products tab-pane fade show p-0">
+                        <!-- <div id="tab-6" class="products tab-pane fade show p-0">
                             <div class="row g-4 products-mini">
                                 <div class="col-lg-6">
                                     <div class="products-mini-item border">
@@ -1165,7 +1163,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -1174,7 +1172,7 @@
     <!-- Shop Page End -->
 
     <!-- Product Banner Start -->
-    <div class="container-fluid py-5">
+    <!-- <div class="container-fluid py-5">
         <div class="container pb-5">
             <div class="row g-4">
                 <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
@@ -1206,7 +1204,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Product Banner End -->
 
     <!-- Footer Start -->
@@ -1350,12 +1348,17 @@
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+    <script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'lib/lightbox/js/lightbox.min.js' %}"></script>
+    <script src="{% static 'lib/lightbox/js/script.min.js' %}"></script>
 
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 
 </html>

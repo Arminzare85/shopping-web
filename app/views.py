@@ -8,14 +8,35 @@ from django.db.models import Q
 
 # Create your views here.
 def home_views(request):
-    return render(request,"index.html")
-def shop_views(request):
     products = Product.objects.filter(status=True)
     categories = Category.objects.all()
+    sort = request.GET.get("sort")
 
+    if sort == "new":
+        products = products.order_by("-created_at")
+
+    # elif sort == "top":
+    #     products = products.order_by("-sales")   
+
+     
     context = {
         'products': products,
         'categories': categories
+    }
+
+    return render(request, "index.html", context)
+    
+def shop_views(request):
+
+    products = Product.objects.filter(status=True)
+
+    category = request.GET.get("category")
+
+    if category:
+        products = products.filter(category_id=category)
+
+    context = {
+        "products": products,
     }
 
     return render(request, "shop.html", context)
@@ -81,8 +102,80 @@ def single_views(request, pid):
     return render(request, "single.html", context)
 def bestseller_views(request):
     return render(request,"bestseller.html")
+@login_required
 def cart_views(request):
-    return render(request,"cart.html")
+
+    cart = request.session.get("cart", {})
+
+    cart_items = []
+    total_price = 0
+
+    for product_id, quantity in cart.items():
+
+        product = get_object_or_404(
+            Product,
+            id=product_id,
+            status=True
+        )
+
+        item_total = product.price * quantity
+
+        cart_items.append({
+            "product": product,
+            "quantity": quantity,
+            "total": item_total,
+        })
+
+        total_price += item_total
+
+    return render(request, "cart.html", {
+        "cart_items": cart_items,
+        "total_price": total_price,
+    })
+
+@login_required
+def add_to_cart(request, product_id):
+
+    product = get_object_or_404(
+        Product,
+        id=product_id,
+        status=True
+    )
+
+    cart = request.session.get("cart", {})
+
+    product_id = str(product_id)
+
+    if product_id in cart:
+        cart[product_id] += 1
+    else:
+        cart[product_id] = 1
+
+    request.session["cart"] = cart
+    request.session.modified = True
+
+    return redirect("app:cart")
+
+@login_required
+def remove_from_cart(request, product_id):
+
+    cart = request.session.get("cart", {})
+
+    product_id = str(product_id)
+
+    if product_id in cart:
+        del cart[product_id]
+
+    request.session["cart"] = cart
+    request.session.modified = True
+
+    return redirect("app:cart")
+
+def remove_all_from_cart(request):
+    request.session["cart"] = {}
+    request.session.modified = True
+
+    return redirect("app:cart")
 def cheackout_views(request):
     return render(request,"cheackout.html")
 def fourzero_views(request):

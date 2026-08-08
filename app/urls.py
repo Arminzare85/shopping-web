@@ -11,6 +11,17 @@ urlpatterns = [
     path("single/<int:pid>/",single_views,name="single"),
     path("bestseller/",bestseller_views,name="bestseller"),
     path("cart/",cart_views,name="cart"),
+    path(
+        'cart/add/<int:product_id>/',
+        add_to_cart,
+        name='add_to_cart'
+    ),
+     path(
+        "cart/remove/<int:product_id>/",
+        remove_from_cart,
+        name="remove_from_cart"
+    ),
+    path("cart/removeall/", remove_all_from_cart, name="remove_all_from_cart"),
     path("cheackout/",cheackout_views,name="cheackout"),
     path("404/",fourzero_views,name="404"),
     path("contact/",contact_views,name="contact"),
