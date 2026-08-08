@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from store.forms import NameForm , CommentForm
 from django.db.models import Q
 from django.core.paginator import Paginator
+from app.forms import contactForm as ContactForm
 
 # Create your views here.
 def home_views(request ):
@@ -186,5 +187,19 @@ def cheackout_views(request):
     return render(request,"cheackout.html")
 def fourzero_views(request):
     return render(request,"404.html")
+
 def contact_views(request):
-    return render(request,"contact.html")
+
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect("app:contact")
+
+    else:
+        form = ContactForm()
+
+    return render(request, "contact.html", {
+        "form": form
+    })
