@@ -51,7 +51,7 @@
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
                     <a href="#" class="text-muted me-2"> Help</a><small> / </small>
                     <a href="#" class="text-muted mx-2"> Support</a><small> / </small>
-                    <a href="#" class="text-muted ms-2"> Contact</a>
+                    <a href="{% url 'app:contact' %}" class="text-muted ms-2"> Contact</a>
 
                 </div>
             </div>
@@ -224,8 +224,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
-                                class="fa fa-mobile-alt me-2"></i> +0123 456 7890</a>
+                        <!-- <a href="" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
+                                class="fa fa-mobile-alt me-2"></i> +0123 456 7890</a> -->
                     </div>
                 </nav>
             </div>
@@ -369,7 +369,7 @@
         <div class="container">
             <div class="row g-4">
                 <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.2s">
-                    <a href="#" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
+                    <a href="{% url 'app:shop'%}" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
                         <div>
                             <p class="text-muted mb-3">Find The Best Camera for You!</p>
                             <h3 class="text-primary">Smart Camera</h3>
@@ -380,7 +380,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
-                    <a href="#" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
+                    <a href="{% url 'app:shop' %}" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
                         <div>
                             <p class="text-muted mb-3">Find The Best Whatches for You!</p>
                             <h3 class="text-primary">Smart Whatch</h3>
@@ -417,16 +417,7 @@
                                     <span class="text-dark" style="width: 130px;">New Arrivals</span>
                                 </a>
                             </li>
-                            <li class="nav-item mb-4">
-                                <a class="d-flex mx-2 py-2 bg-light rounded-pill {% if sort == 'new' %}active{% endif %}" data-bs-toggle="pill" href="#tab-3">
-                                    <span class="text-dark" style="width: 130px;">Featured</span>
-                                </a>
-                            </li>
-                            <li class="nav-item mb-4">
-                                <a class="d-flex mx-2 py-2 bg-light rounded-pill {% if sort == 'new' %}active{% endif %}" data-bs-toggle="pill" href="#tab-4">
-                                    <span class="text-dark" style="width: 130px;">Top Selling</span>
-                                </a>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
