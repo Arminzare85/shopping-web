@@ -111,7 +111,8 @@ def bestseller_views(request):
     return render(request,"bestseller.html")
 @login_required
 def cart_views(request):
-
+        
+    categories = Category.objects.all()
     cart = request.session.get("cart", {})
 
     cart_items = []
@@ -138,6 +139,7 @@ def cart_views(request):
     return render(request, "cart.html", {
         "cart_items": cart_items,
         "total_price": total_price,
+        "categories": categories
     })
 @login_required
 def wishlist_views(request):
