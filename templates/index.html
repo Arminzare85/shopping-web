@@ -123,7 +123,7 @@
                 <div class="d-inline-flex align-items-center">
                     <a href="#" class="text-muted d-flex align-items-center justify-content-center me-3"><span
                             class="rounded-circle btn-md-square border"><i class="fas fa-random"></i></i></a>
-                    <a href="#" class="text-muted d-flex align-items-center justify-content-center me-3"><span
+                    <a href="{% url 'store:wishlist' %}" class="text-muted d-flex align-items-center justify-content-center me-3"><span
                             class="rounded-circle btn-md-square border"><i class="fas fa-heart"></i></a>
                     <a href="{% url 'app:cart' %}" class="text-muted d-flex align-items-center justify-content-center"><span
                             class="rounded-circle btn-md-square border"><i class="fas fa-shopping-cart"></i></span>
@@ -454,7 +454,7 @@
                                                     class="text-primary d-flex align-items-center justify-content-center me-3"><span
                                                         class="rounded-circle btn-sm-square border"><i
                                                             class="fas fa-random"></i></i></a>
-                                                <a href="#"
+                                                <a href="{% url 'store:toggle_wishlist' product.id %}"
                                                     class="text-primary d-flex align-items-center justify-content-center me-0"><span
                                                         class="rounded-circle btn-sm-square border"><i
                                                             class="fas fa-heart"></i></a>
@@ -726,7 +726,7 @@
                                     class="text-primary d-flex align-items-center justify-content-center me-3"><span
                                         class="rounded-circle btn-sm-square border"><i
                                             class="fas fa-random"></i></i></a>
-                                <a href="#"
+                                <a href="{% url 'store:toggle_wishlist' product.id %}"
                                     class="text-primary d-flex align-items-center justify-content-center me-0"><span
                                         class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></a>
                             </div>

@@ -120,6 +120,9 @@ body {
     font-weight: 500;
     color: var(--text-color);
 }
+.fa-heart-crack {
+    color: #ffc107;
+}
 
 .form-group input {
     width: 100%;

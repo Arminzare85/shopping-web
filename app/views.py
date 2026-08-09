@@ -7,7 +7,7 @@ from store.forms import NameForm , CommentForm
 from django.db.models import Q
 from django.core.paginator import Paginator
 from app.forms import contactForm as ContactForm
-
+from store.models import Wishlist
 # Create your views here.
 def home_views(request ):
     products = Product.objects.filter(status=True)
@@ -138,6 +138,15 @@ def cart_views(request):
     return render(request, "cart.html", {
         "cart_items": cart_items,
         "total_price": total_price,
+    })
+@login_required
+def wishlist_views(request):
+    wishlists = Wishlist.objects.filter(
+        user=request.user
+    ).select_related("product")
+
+    return render(request, "wishlist.html", {
+        "wishlists": wishlists
     })
 
 @login_required

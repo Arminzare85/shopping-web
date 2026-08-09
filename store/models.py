@@ -44,4 +44,18 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.comment
-        return self.comment
+        
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE , related_name='wishlist')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE , related_name='wishlist')
+    created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        constraints = [
+        models.UniqueConstraint(
+            fields=["user", "product"],
+            name="unique_user_product_wishlist"
+        )
+    ]
+    def __str__(self):
+        return self.product.name

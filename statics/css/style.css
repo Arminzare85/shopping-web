@@ -703,7 +703,9 @@
 .active-sort span {
     color: white !important;
 }
-
+.fa-heart-crack {
+    color: #ffc107;
+}
 
 
 
